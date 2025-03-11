@@ -1,0 +1,51 @@
+enable
+
+configure terminal
+
+no logging console
+
+hostname SW3-MAIN02
+
+enable secret 12345
+
+line con 0
+password consola123
+login
+
+line vty 0 4
+password telnet123
+login
+
+service password-encryption
+
+banner motd # WELCOME #
+
+vlan 10
+name Administrativos
+
+vlan 20
+name Estudiantes
+
+vlan 30
+name Profesores
+
+interface range fa0/1 - 8
+switchport mode access
+switchport access vlan 10
+
+interface range fa0/9 - 16
+switchport mode access
+switchport access vlan 20
+
+interface range fa0/16 - 24
+switchport mode access
+switchport access vlan 30
+
+interface range fa0/1 - 24
+no shutdown
+end
+
+show ip interface brief
+show vlan brief
+
+write memory

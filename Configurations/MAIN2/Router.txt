@@ -1,0 +1,46 @@
+configure terminal
+
+router rip
+version 2
+network 10.21.0.0
+network 10.21.64.0
+exit
+
+interface Serial6/0
+ip address 10.21.0.2 255.255.192.0
+no shutdown
+
+interface Serial7/0
+ip address 10.21.128.2 255.255.192.0
+no shutdown
+
+interface GigabitEthernet8/0
+ip address 10.21.192.2 255.255.192.0
+no shutdown
+
+interface GigabitEthernet0/0
+no shutdown
+
+hostname MAIN02
+
+enable secret 12345
+line con 0
+
+password consola123
+login
+line vty 0 4
+
+password telnet123
+login
+
+service password-encryption
+
+banner motd # WELCOME #
+end
+
+show ip interface brief
+show ip route
+show ip route rip
+show ip protocols
+
+write memory
